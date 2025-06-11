@@ -1,0 +1,35 @@
+lfjail: FreeBSD jail management tool
+====================================
+
+lfjail is a tool for creating and managing FreeBSD jails.  i wrote lfjail
+primarily for my own use, but you're welcome to use it too.
+
+requirements
+------------
+
+lfjail requires a C++23 compiler and textproc/libucl from ports.  it is
+primarily tested on FreeBSD 15.x, but it will probably work on older
+releases.
+
+installing
+----------
+
+simply run:
+
+# make [LOCALBASE=/usr/local] [PREFIX=/usr/local] [DESTDIR=/somewhere] install
+
+LOCALBASE is the location of the installed ports.  the default value is
+/usr/local.
+
+PREFIX is the prefix under which lfjail will be installed.  the default value
+is LOCALBASE.
+
+DESTDIR is the staging directory that files will be installed into, which
+might be useful when building a package.
+
+questions, comments?
+--------------------
+
+send any feedback (bugs, feature requests or patches) to lexi@le-fay.org.
+alternatively, you can create an issue in the GitHub repository at
+https://github.com/llfw/lfjail.

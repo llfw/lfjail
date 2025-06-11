@@ -1,0 +1,104 @@
+.\" This source code is released into the public domain.
+.Dd June 4, 2025
+.Dt LFACME 8
+.Os
+.Sh NAME
+.Nm lfacme
+.Nd issue, renew and manage ACME certificates
+.Sh SYNOPSIS
+.Nm lfacme
+.Op Fl v
+.Op Fl c Ar confdir
+.Cm cert list
+.Nm lfacme
+.Op Fl v
+.Op Fl c Ar confdir
+.Cm cert remove
+.Ar certificate
+.Op Ar certificate ...
+.Nm lfacme
+.Op Fl v
+.Op Fl c Ar confdir
+.Cm setup
+.Op Fl y
+.Nm lfacme
+.Op Fl v
+.Op Fl c Ar confdir
+.Cm renew
+.Op Fl f
+.Op Ar certificate
+.Sh DESCRIPTION
+The
+.Nm
+command supports automated management of TLS certificates using an ACME server.
+Certificates can be automatically issued and renewed, and a hook system allows
+software using those certificates to be automatically (re)configured with the
+new certificate.
+.Pp
+Prior to using
+.Nm ,
+two configuration files must be created:
+.Pa __CONFDIR__/acme.conf
+and
+.Pa __CONFDIR__/domains.conf .
+Samples of both files are provided in
+.Pa __CONFDIR__ .
+Refer to
+.Xr acme.conf 5
+and
+.Xr domains.conf 5
+for more detailed documentation on these files.
+.Pp
+The following options are supported:
+.Bl -tag -width Fl c Ar confdir
+.It Fl c Ar confdir
+Load the configuration from
+.Ar confdir
+instead of the default
+.Pa __CONFDIR__ .
+.It Fl v
+Print more detailed output while running.
+.El
+.Pp
+The following commands are supported:
+.Bl -tag -width Cm setup
+.It Cm setup
+Create a new account on the ACME server.
+This must be run prior to issuing any certificates.
+See
+.Xr lfacme-setup 8 .
+.It Cm renew
+Issue or renew any certificates based on the
+.Xr domains.conf 5
+configuration file.
+See
+.Xr lfacme-renew 8 .
+.It Cm cert
+Manage installed certificates.
+See
+.Xr lfacme-cert 8 .
+.Sh ENVIRONMENT
+The following environment variables affect the executation of
+.Nm :
+.Bl -tag -width LFACME_VERBOSE
+.It Ev LFACME_CONFDIR
+Override the default configuration directory.
+This is equivalent to specifying the
+.Fl c
+flag on the command line.
+.It Ev LFACME_VERBOSE
+If set to a non-empty string, run in verbose mode.
+This is equivalent to specifying the
+.Fl v
+flag on the command line.
+.El
+.Pp
+Additionally, any configuration settings described in
+.Xr acme.conf 5
+may also be set in the environment.
+.Sh SEE ALSO
+.Xr acme.conf 5 ,
+.Xr domains.conf 5 ,
+.Xr lfacme-cert 8 ,
+.Xr lfacme-renew 8 ,
+.Xr lfacme-setup 8
